@@ -5,26 +5,31 @@ import { motion, AnimatePresence } from "framer-motion";
 import SectionWrapper from "../SectionWrapper";
 import { FiSend, FiGithub, FiLinkedin, FiMail, FiCheck } from "react-icons/fi";
 
+const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
+
 const socialLinks = [
   {
     href: "https://github.com/tdineth",
     icon: FiGithub,
     label: "GitHub",
-    color: "hover:text-white hover:bg-gray-800",
+    color: "hover:text-white hover:bg-gray-800 dark:hover:bg-gray-700",
   },
   {
-    href: "https://linkedin.com/in/theekshana-dineth",
+    href: "https://www.linkedin.com/in/theekshana-dineth-8675b7311/",
     icon: FiLinkedin,
     label: "LinkedIn",
     color: "hover:text-white hover:bg-blue-600",
   },
   {
-    href: "mailto:theekshana@example.com",
+    href: "mailto:theekshanadineth201@gmail.com",
     icon: FiMail,
     label: "Email",
     color: "hover:text-white hover:bg-primary-500",
   },
 ];
+
+// ⚠️ Get your free access key at https://web3forms.com (enter your email to get a key)
+const WEB3FORMS_KEY = "6bef5775-7783-47a8-b639-2bc01b70875f";
 
 export default function Contact() {
   const [formState, setFormState] = useState({
@@ -34,34 +39,47 @@ export default function Contact() {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError("");
 
-    // Simulate submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          name: formState.name,
+          email: formState.email,
+          message: formState.message,
+          from_name: "Portfolio Contact Form",
+          subject: `New message from ${formState.name}`,
+        }),
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setFormState({ name: "", email: "", message: "" });
+      const data = await response.json();
 
-    setTimeout(() => setIsSubmitted(false), 4000);
+      if (data.success) {
+        setIsSubmitted(true);
+        setFormState({ name: "", email: "", message: "" });
+        setTimeout(() => setIsSubmitted(false), 4000);
+      } else {
+        setError("Failed to send message. Please try again.");
+      }
+    } catch {
+      setError("Network error. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <SectionWrapper id="contact" className="section-padding">
       <div className="section-container">
-        {/* Section Header */}
         <div className="text-center mb-16">
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-sm font-mono text-primary-400 mb-2"
-          >
-            06. Contact
-          </motion.p>
           <h2 className="text-3xl md:text-4xl font-bold">
             Get In <span className="text-gradient">Touch</span>
           </h2>
@@ -72,25 +90,24 @@ export default function Contact() {
         </div>
 
         <div className="max-w-xl mx-auto">
-          {/* Form */}
           <motion.form
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={spring}
             onSubmit={handleSubmit}
             className="glass-card rounded-2xl p-8 space-y-5"
           >
-            {/* Name */}
             <div>
               <label
-                htmlFor="name"
+                htmlFor="contact-name"
                 className="block text-sm font-medium mb-2 text-[var(--text-secondary)]"
               >
                 Name
               </label>
               <input
                 type="text"
-                id="name"
+                id="contact-name"
                 value={formState.name}
                 onChange={(e) =>
                   setFormState((s) => ({ ...s, name: e.target.value }))
@@ -104,17 +121,16 @@ export default function Contact() {
               />
             </div>
 
-            {/* Email */}
             <div>
               <label
-                htmlFor="email"
+                htmlFor="contact-email"
                 className="block text-sm font-medium mb-2 text-[var(--text-secondary)]"
               >
                 Email
               </label>
               <input
                 type="email"
-                id="email"
+                id="contact-email"
                 value={formState.email}
                 onChange={(e) =>
                   setFormState((s) => ({ ...s, email: e.target.value }))
@@ -128,16 +144,15 @@ export default function Contact() {
               />
             </div>
 
-            {/* Message */}
             <div>
               <label
-                htmlFor="message"
+                htmlFor="contact-message"
                 className="block text-sm font-medium mb-2 text-[var(--text-secondary)]"
               >
                 Message
               </label>
               <textarea
-                id="message"
+                id="contact-message"
                 rows={5}
                 value={formState.message}
                 onChange={(e) =>
@@ -152,12 +167,16 @@ export default function Contact() {
               />
             </div>
 
-            {/* Submit */}
+            {error && (
+              <p className="text-sm text-red-400 text-center">{error}</p>
+            )}
+
             <motion.button
               type="submit"
               disabled={isSubmitting || isSubmitted}
-              whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+              whileHover={!isSubmitting ? { scale: 1.02, y: -1 } : {}}
+              whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+              transition={spring}
               className={`w-full py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2
                 transition-all duration-300 ${
                   isSubmitted
@@ -210,12 +229,11 @@ export default function Contact() {
             </motion.button>
           </motion.form>
 
-          {/* Social Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.2, ...spring }}
             className="flex justify-center gap-4 mt-8"
           >
             {socialLinks.map((link) => (
@@ -226,6 +244,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1, y: -3 }}
                 whileTap={{ scale: 0.95 }}
+                transition={spring}
                 className={`w-12 h-12 rounded-xl glass-card flex items-center justify-center
                   text-[var(--text-muted)] transition-all duration-200 ${link.color}`}
                 aria-label={link.label}

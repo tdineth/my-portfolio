@@ -1,13 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 import { FiMenu, FiX } from "react-icons/fi";
+
+const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
 const navLinks = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
+  { href: "#proof", label: "Proof" },
   { href: "#projects", label: "Projects" },
   { href: "#research", label: "Research" },
   { href: "#robotics", label: "Robotics" },
@@ -17,6 +20,8 @@ const navLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { scrollY } = useScroll();
+  const navHeight = useTransform(scrollY, [0, 100], [80, 56]);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -33,30 +38,36 @@ export default function Navbar() {
         isScrolled ? "glass-navbar shadow-lg shadow-black/5" : "bg-transparent"
       }`}
     >
-      <nav className="section-container flex items-center justify-between h-16 md:h-20">
+      <motion.nav
+        style={{ height: navHeight }}
+        className="section-container flex items-center justify-between"
+      >
         {/* Logo */}
         <motion.a
           href="#"
           className="text-xl font-bold text-gradient"
           whileHover={{ scale: 1.02 }}
+          transition={spring}
         >
           TD<span className="text-primary-400">.</span>
         </motion.a>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-0.5">
           {navLinks.map((link) => (
-            <a
+            <motion.a
               key={link.href}
               href={link.href}
-              className="px-4 py-2 text-sm font-medium rounded-lg
+              whileHover={{ y: -1 }}
+              transition={spring}
+              className="px-3 py-1.5 text-sm font-medium rounded-lg
                 text-[var(--text-secondary)] hover:text-[var(--text-primary)]
                 hover:bg-primary-500/10 transition-all duration-200"
             >
               {link.label}
-            </a>
+            </motion.a>
           ))}
-          <div className="ml-3">
+          <div className="ml-2">
             <ThemeToggle />
           </div>
         </div>
@@ -73,7 +84,7 @@ export default function Navbar() {
             {isMobileOpen ? <FiX className="w-5 h-5" /> : <FiMenu className="w-5 h-5" />}
           </motion.button>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobile Menu */}
       <AnimatePresence>
@@ -92,7 +103,7 @@ export default function Navbar() {
                   href={link.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: i * 0.05, ...spring }}
                   onClick={() => setIsMobileOpen(false)}
                   className="px-4 py-3 text-sm font-medium rounded-lg
                     text-[var(--text-secondary)] hover:text-[var(--text-primary)]

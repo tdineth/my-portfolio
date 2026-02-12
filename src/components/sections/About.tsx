@@ -3,13 +3,17 @@
 import { motion } from "framer-motion";
 import SectionWrapper from "../SectionWrapper";
 
+const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
+
 const highlights = [
   { label: "AI & ML", icon: "🧠" },
-  { label: "Deep Learning", icon: "⚡" },
-  { label: "Robotics", icon: "🤖" },
-  { label: "Research", icon: "📚" },
-  { label: "Physics", icon: "🔬" },
-  { label: "Systems", icon: "⚙️" },
+  { label: "LLMs & GenAI", icon: "⚡" },
+  { label: "Research", icon: "🔬" },
+  { label: "Startups", icon: "🚀" },
+  { label: "IEEE", icon: "🌐" },
+  { label: "Teaching", icon: "📚" },
+  { label: "Backend", icon: "⚙️" },
+  { label: "Leadership", icon: "👥" },
 ];
 
 export default function About() {
@@ -18,14 +22,6 @@ export default function About() {
       <div className="section-container">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-sm font-mono text-primary-400 mb-2"
-          >
-            01. About Me
-          </motion.p>
           <h2 className="text-3xl md:text-4xl font-bold">
             Who I <span className="text-gradient">Am</span>
           </h2>
@@ -35,36 +31,40 @@ export default function About() {
           {/* Text Content */}
           <div className="md:col-span-3 space-y-5">
             <p className="text-[var(--text-secondary)] leading-relaxed text-lg">
-              I&apos;m a Computer Engineering undergraduate with a deep passion for
-              building intelligent systems that operate at the intersection of
-              software and hardware. My work spans{" "}
+              I&apos;m a{" "}
               <span className="text-primary-400 font-medium">
-                artificial intelligence
-              </span>
-              ,{" "}
+                Computer Engineering
+              </span>{" "}
+              undergraduate at the{" "}
               <span className="text-primary-400 font-medium">
-                machine learning
-              </span>
-              , and{" "}
-              <span className="text-primary-400 font-medium">robotics</span>,
-              driven by a research-oriented mindset and a foundation in physics
-              and mathematics.
+                University of Peradeniya
+              </span>{" "}
+              (GPA: 3.83/4.00), specializing in{" "}
+              <span className="text-primary-400 font-medium">
+                Artificial Intelligence
+              </span>{" "}
+              and software engineering with extensive experience in research,
+              startups and leadership.
             </p>
             <p className="text-[var(--text-secondary)] leading-relaxed">
-              I specialize in designing and implementing deep learning models,
-              optimizing them for real-world deployment, and integrating AI
-              capabilities into robotic systems. From developing reinforcement
-              learning agents for autonomous navigation to building efficient
-              neural architectures for edge devices, I thrive on solving complex
-              engineering problems.
+              As Executive Director of Sri Lanka&apos;s first student-focused AI
+              Forum, I lead national-level awareness programs and
+              interdisciplinary tech initiatives. My research at the{" "}
+              <span className="text-primary-400 font-medium">
+                Multidisciplinary AI Research Centre
+              </span>{" "}
+              spans lung sound analysis, LLM studies, GenAI diffusion models,
+              and implicit neural representations.
             </p>
             <p className="text-[var(--text-secondary)] leading-relaxed">
-              My approach combines rigorous mathematical thinking with hands-on
-              engineering — I believe that truly impactful AI systems must be
-              grounded in both theoretical understanding and practical
-              implementation. I&apos;m actively pursuing research opportunities and
-              seeking roles where I can contribute to advancing the state of the
-              art.
+              On the entrepreneurial side, I founded{" "}
+              <span className="text-primary-400 font-medium">NovaMinds</span>{" "}
+              (WriteScan — recognized as Top 50 Inventors at Neo Ventures) and
+              I&apos;m building{" "}
+              <span className="text-primary-400 font-medium">NexClinic</span>,
+              an AI-powered medical decision support system with agentic RAG
+              architectures. I actively collaborate with industry, government
+              and international academic partners.
             </p>
           </div>
 
@@ -76,11 +76,11 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.4 }}
+                transition={{ delay: i * 0.08, ...spring }}
                 whileHover={{
                   y: -4,
                   scale: 1.03,
-                  transition: { duration: 0.2 },
+                  transition: { ...spring },
                 }}
                 className={`glass-card rounded-xl p-4 text-center cursor-default
                   hover:shadow-lg hover:shadow-primary-500/10 transition-shadow duration-300

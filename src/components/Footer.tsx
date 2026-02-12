@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 
 const socialLinks = [
   { href: "https://github.com/tdineth", icon: FiGithub, label: "GitHub" },
-  { href: "https://linkedin.com/in/theekshana-dineth", icon: FiLinkedin, label: "LinkedIn" },
-  { href: "mailto:theekshana@example.com", icon: FiMail, label: "Email" },
+  { href: "https://www.linkedin.com/in/theekshana-dineth-8675b7311/", icon: FiLinkedin, label: "LinkedIn" },
+  { href: "mailto:theekshanadineth201@gmail.com", icon: FiMail, label: "Email" },
 ];
 
 export default function Footer() {

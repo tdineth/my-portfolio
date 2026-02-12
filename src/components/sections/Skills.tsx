@@ -4,20 +4,14 @@ import { motion } from "framer-motion";
 import SectionWrapper from "../SectionWrapper";
 import { skillCategories } from "@/data/skills";
 
+const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
+
 export default function Skills() {
   return (
     <SectionWrapper id="skills" className="section-padding">
       <div className="section-container">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-sm font-mono text-primary-400 mb-2"
-          >
-            02. Skills
-          </motion.p>
           <h2 className="text-3xl md:text-4xl font-bold">
             Technical <span className="text-gradient">Arsenal</span>
           </h2>
@@ -31,7 +25,7 @@ export default function Skills() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: catIdx * 0.1, duration: 0.5 }}
+              transition={{ delay: catIdx * 0.1, ...spring }}
               className="glass-card rounded-2xl p-6 glow-border"
             >
               {/* Category Header */}
@@ -50,12 +44,12 @@ export default function Skills() {
                     viewport={{ once: true }}
                     transition={{
                       delay: catIdx * 0.1 + skillIdx * 0.05,
-                      duration: 0.3,
+                      ...spring,
                     }}
                     whileHover={{
                       y: -3,
                       scale: 1.06,
-                      transition: { duration: 0.15 },
+                      transition: spring,
                     }}
                     className={`px-3 py-1.5 rounded-lg text-sm font-medium cursor-default
                       bg-gradient-to-r ${category.color} bg-clip-text text-transparent

@@ -1,7 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+
+const spring = { type: "spring" as const, stiffness: 100, damping: 20 };
 
 interface SectionWrapperProps {
   children: React.ReactNode;
@@ -14,15 +16,16 @@ export default function SectionWrapper({
   id,
   className = "",
 }: SectionWrapperProps) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id={id} ref={ref} className={`relative ${className}`}>
+    <section id={id} className={`relative ${className}`}>
       <motion.div
+        ref={ref}
         initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        viewport={{ once: true, margin: "-80px" }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={spring}
       >
         {children}
       </motion.div>

@@ -13,21 +13,22 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Theekshana Dineth | AI & ML Engineer | Computer Engineering",
   description:
-    "Portfolio of Theekshana Dineth — Computer Engineering undergraduate specializing in AI, Machine Learning, Robotics and Research. Explore projects, research, and engineering work.",
+    "Portfolio of Theekshana Dineth — Computer Engineering undergraduate at University of Peradeniya specializing in AI, software engineering, research and startups. Director of Sri Lanka's AI Forum for Students.",
   keywords: [
     "Theekshana Dineth",
     "AI Engineer",
     "Machine Learning",
-    "Robotics",
     "Computer Engineering",
-    "Portfolio",
+    "University of Peradeniya",
+    "Startups",
     "Research",
+    "Portfolio",
   ],
   authors: [{ name: "Theekshana Dineth" }],
   openGraph: {
     title: "Theekshana Dineth | AI & ML Engineer",
     description:
-      "Computer Engineering undergraduate specializing in AI, Machine Learning, Robotics and Research.",
+      "Computer Engineering undergraduate specializing in AI, software engineering, research and startups at University of Peradeniya.",
     type: "website",
     locale: "en_US",
   },
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Theekshana Dineth | AI & ML Engineer",
     description:
-      "Computer Engineering undergraduate specializing in AI, Machine Learning, Robotics and Research.",
+      "Computer Engineering undergraduate specializing in AI, software engineering, research and startups at University of Peradeniya.",
   },
   robots: {
     index: true,

@@ -1,6 +1,5 @@
 export interface Skill {
   name: string;
-  icon?: string;
 }
 
 export interface SkillCategory {
@@ -12,7 +11,7 @@ export interface SkillCategory {
 
 export const skillCategories: SkillCategory[] = [
   {
-    title: "Programming",
+    title: "Languages & Core",
     icon: "💻",
     color: "from-blue-500 to-cyan-500",
     skills: [
@@ -21,7 +20,9 @@ export const skillCategories: SkillCategory[] = [
       { name: "C++" },
       { name: "JavaScript" },
       { name: "TypeScript" },
-      { name: "Java" },
+      { name: "SQL" },
+      { name: "MATLAB" },
+      { name: "Bash" },
     ],
   },
   {
@@ -29,38 +30,66 @@ export const skillCategories: SkillCategory[] = [
     icon: "🧠",
     color: "from-purple-500 to-pink-500",
     skills: [
-      { name: "TensorFlow" },
       { name: "PyTorch" },
+      { name: "TensorFlow" },
       { name: "Scikit-learn" },
-      { name: "Model Optimization" },
-      { name: "Computer Vision" },
-      { name: "NLP" },
+      { name: "Hugging Face" },
+      { name: "OpenCV" },
+      { name: "LangChain" },
+      { name: "ONNX" },
+      { name: "Keras" },
     ],
   },
   {
-    title: "Robotics",
-    icon: "🤖",
+    title: "Backend & DevOps",
+    icon: "⚙️",
     color: "from-emerald-500 to-teal-500",
     skills: [
-      { name: "Arduino" },
-      { name: "Embedded Systems" },
-      { name: "Sensors & Actuators" },
-      { name: "Control Systems" },
-      { name: "ROS" },
-      { name: "PID Control" },
+      { name: "Django" },
+      { name: "Flask" },
+      { name: "FastAPI" },
+      { name: "Next.js" },
+      { name: "REST APIs" },
+      { name: "Docker" },
+      { name: "Git" },
+      { name: "Linux" },
+    ],
+  },
+  {
+    title: "Databases",
+    icon: "🗄️",
+    color: "from-amber-500 to-orange-500",
+    skills: [
+      { name: "PostgreSQL" },
+      { name: "MySQL" },
+      { name: "MongoDB" },
+      { name: "Redis" },
+      { name: "SQLite" },
     ],
   },
   {
     title: "Tools & Platforms",
-    icon: "🛠",
-    color: "from-orange-500 to-amber-500",
+    icon: "🔧",
+    color: "from-rose-500 to-red-500",
     skills: [
-      { name: "Git" },
-      { name: "Linux" },
-      { name: "MATLAB" },
-      { name: "Docker" },
-      { name: "VS Code" },
+      { name: "Apache Airflow" },
+      { name: "MLflow" },
+      { name: "Postman" },
       { name: "Jupyter" },
+      { name: "VS Code" },
+      { name: "AutoCAD" },
+    ],
+  },
+  {
+    title: "Architecture & Infra",
+    icon: "🏗️",
+    color: "from-indigo-500 to-violet-500",
+    skills: [
+      { name: "Microservices" },
+      { name: "CI/CD" },
+      { name: "REST Design" },
+      { name: "MLOps" },
+      { name: "System Design" },
     ],
   },
 ];
